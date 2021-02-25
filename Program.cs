@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClsWrkDelegate.Derived_Classes;
+using ClsWrkDelegate.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace ClsWrkDelegate
@@ -15,6 +17,7 @@ namespace ClsWrkDelegate
         // when you used ; at the end of method , it means this is non implemntation method --> abstract method
         public delegate void MyDelegate(string msg);
         public delegate int MultipleArgDelegate(int x, int y);
+        public delegate bool ObjectDelegate(Student s);
 
         static void Main(string[] args)
         {
@@ -85,28 +88,52 @@ namespace ClsWrkDelegate
                new Student("Ziaullah" , 25, 4),
                 };
 
-            Console.WriteLine("search Name which age is less than 21..................");
+            //Console.WriteLine("search Name which age is less than 21..................");
 
-            // Lambda expression - lambda operator =>
-            Func<Student, bool> ageLessThan21 = (Student s) => s.Age < 21;
-            Func<Student, bool> nameStartWithJ = (Student s) => s.Name.StartsWith("P");
-            Func<Student, bool> ageLessThan21AndGrade7 = (Student s) => s.Age < 21 && s.Grade > 4;
+            //// Lambda expression - lambda operator =>
+            //ObjectDelegate age10 = (Student s) => s.Age > 10;
+            //Func<Student, bool> ageLessThan21 = (Student s) => s.Age < 21;
+            //Func<Student, bool> nameStartWithJ = (Student s) => s.Name.StartsWith("P");
+            //Func<Student, bool> ageLessThan21AndGrade7 = (Student s) => s.Age < 21 && s.Grade > 4;
 
-            //Predicate<Student> age30 = (Student s) => s.Age > 30;
+            ////Predicate<Student> age30 = (Student s) => s.Age > 30;
 
 
-            var o1 =  FilterAlgorithm.FilterStudent(sList, ageLessThan21);
-            PrintStudentName(o1);
+            //var o1 =  FilterAlgorithm.FilterStudent(sList, ageLessThan21);
+            //PrintStudentName(o1);
 
-            Console.WriteLine(" Name  start with J................................");
-            var o2 = FilterAlgorithm.FilterStudent(sList, nameStartWithJ);
-            PrintStudentName(o2);
+            //Console.WriteLine(" Name  start with J................................");
+            //var o2 = FilterAlgorithm.FilterStudent(sList, nameStartWithJ);
+            //PrintStudentName(o2);
 
-            Console.WriteLine(" Age less than 21 and grade more than 4................................");
-            var o3 = FilterAlgorithm.FilterStudent(sList, ageLessThan21AndGrade7);
+            //Console.WriteLine(" Age less than 21 and grade more than 4................................");
+            //var o3 = FilterAlgorithm.FilterStudent(sList, ageLessThan21AndGrade7);
+            //PrintStudentName(o3);
+
+            //Console.WriteLine(" Age is greater than 10................................");
+            //var o4 = FilterAlgorithm.FilterStudent(sList, age10);
+            //PrintStudentName(o4);
+
+            Console.WriteLine("Call  the interface..........................");
+
+            // interfaces and abstract class ( you can not instantiate) --> hard and fast rule 
+            IStudent chechAge = new CheckAgeLessThan21();
+            Console.WriteLine(" Age less than 21 ................................");
+            var o3 = FilterAlgorithm.CheckCriteriaName(sList, chechAge);
             PrintStudentName(o3);
 
-            
+            IStudent checkName = new CheckNameStartWithP();
+            Console.WriteLine(" Name  start with P................................");
+            var o2 = FilterAlgorithm.CheckCriteriaName(sList, checkName);
+            PrintStudentName(o2);
+
+            // interfaces and abstract class ( you can not instantiate) --> hard and fast rule 
+            IStudent chechAge30 = new CheckAgeGreaterthan30();
+            Console.WriteLine(" Age less than 21 ................................");
+            var o4 = FilterAlgorithm.CheckCriteriaName(sList, chechAge30);
+            PrintStudentName(o4);
+
+
 
             //int grade = 4;
 
